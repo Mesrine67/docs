@@ -87,6 +87,38 @@ end, {
 })
 ```
 
+### openShop
+
+- Payload: `table`
+  - source: `number`
+  - shopId: `string`
+  - shopType: `string`
+  - label: `string`
+  - slots: `integer`
+  - items: `table`
+  - groups?: `table<string, number>`
+  - coords?: `vector3`
+  - distance?: `number` or `false`
+
+Triggered when a player tries to open a shop inventory.  
+By returning `false`, you can cancel the action and keep the shop inventory closed.
+
+**Example**
+
+Disable General stores.
+
+```lua
+local hookId = exports.ox_inventory:registerHook('openShop', function(payload)
+    print(json.encode(payload, { indent = true }))
+    return false
+end, {
+    print = true,
+    inventoryFilter = {
+        '^General'
+    }
+})
+```
+
 ### createItem
 
 - Payload: `table`
