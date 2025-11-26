@@ -25,7 +25,7 @@ exports.ox_inventory:openInventory(invType, data)
 <br />
 <u>**Examples**</u>
 
-<Tabs items={['Player', 'Shop', 'Stash']}>
+<Tabs items={['Player', 'Shop', 'Stash', 'Crafting', 'Police Evidence', 'Glovebox / Trunk']}>
   <Tab>
     Open the target player's inventory.
 
@@ -59,43 +59,43 @@ exports.ox_inventory:openInventory(invType, data)
     exports.ox_inventory:openInventory('stash', { id = 'police_locker', owner = 'license:xxxxxxxx' })
     ```
   </Tab>
+  <Tab>
+    Opens the [second location](https://github.com/CommunityOx/ox_inventory/blob/main/data/crafting.lua#L17) of the debug_crafting recipe.
+
+    ```lua
+    exports.ox_inventory:openInventory('crafting', { id = 'debug_crafting', id = 2 })
+    ```
+  </Tab>
+  <Tab>
+    Opens the number 1 evidence locker.
+
+    ```lua
+    exports.ox_inventory:openInventory('policeevidence', 1)
+    ```
+
+    
+    Opens a dialog to select the evidence locker.
+
+    ```lua
+    exports.ox_inventory:openInventory('policeevidence')
+    ```
+  </Tab>
+  <Tab>
+    Opens the glovebox of a vehicle.
+
+    ```lua
+    local netid = NetworkGetNetworkIdFromEntity(cache.vehicle)
+    exports.ox_inventory:openInventory('glovebox', { netid = netid })
+    ```
+    
+    Opens the trunk of a vehicle.
+
+    ```lua
+    local netid = NetworkGetNetworkIdFromEntity(cache.vehicle)
+    exports.ox_inventory:openInventory('trunk', { netid = netid })
+    ```
+  </Tab>
 </Tabs>
-
-## openNearbyInventory
-
-If possible opens the nearby player's inventory.
-
-The player trying to open the inventory must be able to open their own and
-if the player does not have a police job, the target player must be fatally injured or
-playing one of the death anims.
-
-```lua
-exports.ox_inventory:openNearbyInventory()
-```
-
-## closeInventory
-
-Closes the player's inventory.
-
-```lua
-exports.ox_inventory:closeInventory()
-```
-
-## Items
-
-Returns a table of all registered items. The format is as defined in [data/items.lua](https://github.com/communityox/ox_inventory/blob/main/data/items.lua).
-
-Optionally takes the name of an item, returning only data for that item (getting all data is not recommended).
-
-```lua
-exports.ox_inventory:Items(itemName)
-```
-
-- itemName?: `string`
-
-The following snippet can be used in crafting resources such as okokCrafting or core_crafting, rather than retrieving information from the server.
-
-```lua
 local itemNames = {}
 
 for item, data in pairs(exports.ox_inventory:Items()) do
